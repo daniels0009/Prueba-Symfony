@@ -1,0 +1,48 @@
+{% if tasks|length >= 1 %}
+<table>
+    <tr>
+        <th>Blog</th>
+        <th>Tema</th>
+        <th>Numero de Palabras</th>
+        <th>Acciones</th>
+    </tr>
+
+    {% for task in tasks %}
+        <tr>
+            <td>{{ task.title }}</td>
+            <td>
+                {% if task.topic == 'Matematicas' %}
+                    {{ 'Educacion' }}
+                {% endif %}
+                {% if task.topic == 'Ciencia' %}
+                    {{ 'Educacion' }}
+                {% endif %}
+                {% if task.topic == 'Quimica' %}
+                    {{ 'Educacion' }}
+                {% endif %}
+                {% if task.topic == 'Programacion' %}
+                    {{ 'Programacion' }}
+                {% endif %}
+                {% if task.topic == 'Bigdata' %}
+                    {{ 'Programacion' }}
+                {% endif %}
+                {% if task.topic == 'IA' %}
+                    {{ 'Programacion' }}
+                {% endif %}
+            </td>
+            <td>{{ task.words }}</td>
+            <td class="buttons">
+                <a href="{{ path('task_detail', {'id':task.id}) }}" class="btn-show">Ver</a>
+                
+                {% if app.user != null and task.user.id == app.user.id %}
+                    <a href="{{ path('task_edit', {'id':task.id}) }}" class="btn-edit">Editar</a>
+                    <a href="{{ path('task_delete', {'id':task.id}) }}" class="btn-delete">Borrar</a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+
+</table>
+{% else %}
+    <strong>No hay Blogs en este momento</strong>
+{% endif %}
